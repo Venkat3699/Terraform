@@ -1,0 +1,12 @@
+variable "region" {}
+variable "vpc_cidr" {}
+variable "vpc_name" {}
+variable "IGW_name" {}
+variable "key_name" {}
+variable "public_subnet1_cidr" {}
+variable "public_subnet1_name" {}
+variable "Main_Routing_Table" {}
+variable "env" {}
+variable "ami" {}
+variable "instance_type" {}
+variable "instance_name" {}
