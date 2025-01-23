@@ -7,3 +7,4 @@ env                 = "dev"
 instance_type       = "t2.micro"
 key_name            = "Ravi_Mumabi"
 instance_names      = ["Jenkins", "Docker", "Kubernetes"]
+allowed_ports       = ["22", "80", "8080", "3306"]

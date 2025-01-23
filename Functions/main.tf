@@ -95,31 +95,26 @@ resource "aws_route_table_association" "Rta-Private-Terraform" {
 }
 
 # Configuring Security Group
-resource "aws_security_group" "allow_tls-Terraform" {
-  name        = "allow_tls"
-  description = "Allow TLS inbound traffic and all outbound traffic"
-  vpc_id      = aws_vpc.Vpc-Terraform.id
+resource "aws_security_group" "allow_multiple_ports" {
+  name        = "allow_multiple_ports"
+  description = "Security group to allow multiple ports"
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+  # Loop through allowed ports to create ingress rules
+  dynamic "ingress" {
+    for_each = var.allowed_ports
+    content {
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
+    protocol    = "-1" # Allow all outbound traffic
     cidr_blocks = ["0.0.0.0/0"]
-
-  }
-
-  tags = {
-    Name   = "allow_tls-Terraform"
-    owner  = local.owner
-    teamDL = local.teamDL
-    env    = "${var.env}"
   }
 }
 
