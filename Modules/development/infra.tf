@@ -13,3 +13,12 @@ module "dev_sg" {
   env            = module.dev_vpc.env
   ingress_values = ["22", "80", "443", "8080", "3306"]
 }
+
+module "dev_ec2" {
+  source         = "../modules/compute"
+  env            = module.dev_vpc.env
+  instance_type  = "t2.micro"
+  instance_names = ["Jenkins", "Docker", "Kubernetes"]
+  key_name       = "Ravi_Virginia"
+  ami            = "ami-04b4f1a9cf54c11d0"
+}
