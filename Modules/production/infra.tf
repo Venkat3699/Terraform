@@ -5,6 +5,7 @@ module "prod_vpc" {
   public_subnet_cidr  = ["192.168.1.0/24", "192.168.2.0/24", "192.168.3.0/24"]
   private_subnet_cidr = ["192.168.4.0/24", "192.168.5.0/24", "192.168.6.0/24"]
   env                 = "prod"
+  natgw_id            = module.prod_natgw.natgw_id
 }
 
 module "prod_sg" {
@@ -30,4 +31,10 @@ module "prod_ec2" {
     us-east-2      = "ami-0cb91c7de36eed2cb"
     ap-southeast-1 = "ami-0672fd5b9210aa093"
   }
+}
+
+module "prod_natgw" {
+  source         = "../modules/nat"
+  public_subnets = module.prod_vpc.Public-Subnets
+  env            = module.prod_vpc.env
 }

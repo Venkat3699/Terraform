@@ -19,6 +19,10 @@ resource "aws_route_table" "Public-Rt-Terraform" {
 resource "aws_route_table" "Private-Rt-Terraform" {
   vpc_id = aws_vpc.Vpc-Terraform.id
 
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = var.natgw_id[0]
+  }
   tags = {
     Name   = "${var.env}_Private-RT"
     owner  = local.owner

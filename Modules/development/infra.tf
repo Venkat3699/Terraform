@@ -5,7 +5,9 @@ module "dev_vpc" {
   public_subnet_cidr  = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   private_subnet_cidr = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
   env                 = "dev"
+  natgw_id            = module.dev_natgw.natgw_id
 }
+
 
 module "dev_sg" {
   source         = "../modules/sg"
@@ -30,4 +32,10 @@ module "dev_ec2" {
     us-east-2      = "ami-0cb91c7de36eed2cb"
     ap-southeast-1 = "ami-0672fd5b9210aa093"
   }
+}
+
+module "dev_natgw" {
+  source         = "../modules/nat"
+  public_subnets = module.dev_vpc.Public-Subnets
+  env            = module.dev_vpc.env
 }
