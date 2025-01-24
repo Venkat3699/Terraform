@@ -1,0 +1,11 @@
+variable "region" {}
+variable "vpc_cidr" {}
+variable "azs" {}
+variable "public_subnet_cidr" {}
+variable "private_subnet_cidr" {}
+variable "env" {}
+variable "instance_type" {}
+variable "instance_names" {}
+variable "key_name" {}
+variable "allowed_ports" {}
+variable "amis" {}

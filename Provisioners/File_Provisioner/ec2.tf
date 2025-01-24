@@ -10,7 +10,7 @@ resource "aws_instance" "Public_servers" {
   subnet_id                   = aws_subnet.Public-Subnets[count.index].id
 
   tags = {
-    Name   = var.instance_names[count.index] - Public
+    Name   = "Public-${var.instance_names[count.index]}"
     owner  = local.owner
     teamDL = local.teamDL
     env    = "${var.env}"
@@ -26,7 +26,7 @@ resource "aws_instance" "Private_servers" {
   subnet_id     = aws_subnet.Private-Subnets[count.index].id
 
   tags = {
-    Name   = var.instance_names[count.index] - Private
+    Name   = "Private-${var.instance_names[count.index]}"
     owner  = local.owner
     teamDL = local.teamDL
     env    = "${var.env}"
