@@ -8,4 +8,4 @@ variable "instance_type" {}
 variable "instance_names" {}
 variable "key_name" {}
 variable "allowed_ports" {}
-variable "ami" {}
+variable "amis" {}

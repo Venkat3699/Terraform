@@ -95,9 +95,11 @@ resource "aws_route_table_association" "Rta-Private-Terraform" {
 }
 
 # Configuring Security Group
-resource "aws_security_group" "allow_multiple_ports" {
+# Configuring Security Group
+resource "aws_security_group" "allow_tls-Terraform" {
   name        = "allow_multiple_ports"
   description = "Security group to allow multiple ports"
+  vpc_id      = aws_vpc.Vpc-Terraform.id # Ensure the security group is associated with the correct VPC
 
   # Loop through allowed ports to create ingress rules
   dynamic "ingress" {
@@ -116,20 +118,26 @@ resource "aws_security_group" "allow_multiple_ports" {
     protocol    = "-1" # Allow all outbound traffic
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+    Name   = "${var.env}_Sg-tf"
+    owner  = local.owner
+    teamDL = local.teamDL
+    env    = "${var.env}"
+  }
 }
 
 
 # Creating EC2 Instances
 resource "aws_instance" "web_servers" {
   count                       = length(var.instance_names)
-  ami                         = "ami-00bb6a80f01f03502" # Replace with your desired AMI
+  ami                         = var.ami # Replace with your desired AMI
   instance_type               = var.instance_type
   key_name                    = var.key_name # Replace with your key pair name
   associate_public_ip_address = true
+  vpc_security_group_ids      = [aws_security_group.allow_tls-Terraform.id]
+  subnet_id                   = aws_subnet.Public-Subnets[count.index].id
 
   tags = {
     Name = var.instance_names[count.index]
   }
-
-  security_groups = ["aws_security_group.allow_tls-Terraform.id"]
 }
