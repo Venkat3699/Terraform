@@ -38,3 +38,12 @@ module "prod_natgw" {
   public_subnets = module.prod_vpc.Public-Subnets
   env            = module.prod_vpc.env
 }
+
+module "prod_iam_role" {
+  source              = "../modules/iam"
+  rolename            = "prod-admin_read_access"
+  env                 = module.dev_vpc.env
+  instanceprofilename = "prod-admin_read_access"
+  policyname          = "prod-AdminReadOnlyPolicy"
+  username            = "Rishi"
+}

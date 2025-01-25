@@ -45,6 +45,7 @@ module "dev_iam_role" {
   rolename            = "dev-admin_read_access"
   env                 = module.dev_vpc.env
   instanceprofilename = "dev-admin_read_access"
-  policyname          = "Dev-AdminReadOnlyPolicy"
+  policyname          = "dev-AdminReadOnlyPolicy"
   username            = "Rishi"
 }
+

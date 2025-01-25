@@ -15,6 +15,11 @@ output "user_name" {
   value = aws_iam_user.admin_user.name
 }
 
+output "password" {
+  value     = aws_iam_user_login_profile.admin_user_login.password
+  sensitive = true
+}
+
 output "access_key_id" {
   value     = aws_iam_access_key.admin_user_access_key.id
   sensitive = true
