@@ -30,7 +30,7 @@ resource "aws_iam_access_key" "admin_user_access_key" {
 locals {
   admin_keys_csv = <<EOF
     username,password,access_key,secret_key
-    ${var.username},${var.password},${aws_iam_access_key.admin_user_access_key.id},${aws_iam_access_key.admin_user_access_key.secret}
+    ${aws_iam_user.admin_user.name},${aws_iam_user_login_profile.admin_user_login.password},${aws_iam_access_key.admin_user_access_key.id},${aws_iam_access_key.admin_user_access_key.secret}
     EOF
 }
 

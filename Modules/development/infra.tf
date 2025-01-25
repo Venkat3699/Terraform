@@ -47,5 +47,4 @@ module "dev_iam_role" {
   instanceprofilename = "dev-admin_read_access"
   policyname          = "Dev-AdminReadOnlyPolicy"
   username            = "Rishi"
-  password            = "Rishi@123!@#"
 }
