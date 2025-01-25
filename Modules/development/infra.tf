@@ -39,3 +39,13 @@ module "dev_natgw" {
   public_subnets = module.dev_vpc.Public-Subnets
   env            = module.dev_vpc.env
 }
+
+module "dev_iam_role" {
+  source              = "../modules/iam"
+  rolename            = "dev-admin_read_access"
+  env                 = module.dev_vpc.env
+  instanceprofilename = "dev-admin_read_access"
+  policyname          = "Dev-AdminReadOnlyPolicy"
+  username            = "Rishi"
+  password            = "Rishi@123!@#"
+}
